@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
+import { RequestStatusType } from '../app/app-reducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '8f2534e2-22a4-4052-894e-a66c04807482'
+        'API-KEY': '5fc11a34-7258-4926-8c00-915edb4f940c'
     }
 })
 
@@ -77,6 +78,7 @@ export type TaskType = {
     todoListId: string
     order: number
     addedDate: string
+    entityStatus: RequestStatusType
 }
 export type UpdateTaskModelType = {
     title: string
