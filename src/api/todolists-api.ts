@@ -1,13 +1,30 @@
 import axios, { AxiosResponse } from 'axios'
-import { RequestStatusType } from '../app/app-reducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '5fc11a34-7258-4926-8c00-915edb4f940c'
+        'API-KEY': '5fc11a34-7258-4926-8c00-91db4f940cfd'
     }
 })
+type LoginObjType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+export const authAPI = {
+    login({email, password, rememberMe=false}: LoginObjType) {
+        return instance.post<ResponseType<{ userId: number }>>('auth/login', {email, password, rememberMe})
+    },
+    authMe() {
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>('auth/me')
+    },
+
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+    }
+}
 
 // api
 export const todolistsAPI = {
@@ -78,7 +95,6 @@ export type TaskType = {
     todoListId: string
     order: number
     addedDate: string
-    entityStatus: RequestStatusType
 }
 export type UpdateTaskModelType = {
     title: string
